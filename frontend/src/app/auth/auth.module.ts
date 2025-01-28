@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { AUTH_ROUTES } from './auth.routes';
 import { LoginComponent } from './login/login.component';
 
-
-
 @NgModule({
   declarations: [LoginComponent],
   imports: [
