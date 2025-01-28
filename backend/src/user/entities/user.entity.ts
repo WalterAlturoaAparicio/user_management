@@ -13,7 +13,7 @@ import {
 @Entity('user')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column({ unique: true })
   email: string
@@ -21,7 +21,7 @@ export class User {
   @Column()
   passwordHash: string
 
-  @Column()
+  @Column({ nullable: true })
   refreshToken: string
 
   @ManyToOne(() => Role, (role) => role.users, { eager: true })
@@ -37,8 +37,8 @@ export class User {
   createdAt: Date
 
   @ManyToOne(() => User, (admin) => admin.managedUsers, { nullable: true })
-  admin: User;
+  admin: User
 
   @OneToMany(() => User, (user) => user.admin)
-  managedUsers: User[];
+  managedUsers: User[]
 }

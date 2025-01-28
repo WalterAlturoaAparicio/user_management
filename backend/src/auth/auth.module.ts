@@ -9,6 +9,7 @@ import { Role } from 'src/role/entities/role.entity'
 import { PassportModule } from '@nestjs/passport'
 import { JwtStrategy } from './jwt.strategy'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { AuditModule } from 'src/audit/audit.module'
 
 @Module({
   imports: [
@@ -22,9 +23,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
       }),
     }),
     TypeOrmModule.forFeature([PasswordResetToken, User, Role]),
+    AuditModule,
   ],
   providers: [JwtStrategy, AuthService],
   controllers: [AuthController],
   exports: [TypeOrmModule],
 })
-export class AuthModule { }
+export class AuthModule {}

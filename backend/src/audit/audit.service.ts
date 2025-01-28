@@ -1,21 +1,26 @@
-import { Injectable } from '@nestjs/common'
-import { Kafka } from 'kafkajs'
+import { Inject, Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { AuditLog } from './entities/audit-log.entity'
+import { Repository } from 'typeorm'
+import { ClientKafka } from '@nestjs/microservices'
 
 @Injectable()
 export class AuditService {
-  private kafka = new Kafka({
-    brokers: [process.env.KAFKA_BROKER || 'localhost:9092'],
-  })
-  private producer = this.kafka.producer()
+  constructor(
+    @Inject('KAFKA_SERVICE')
+    private readonly kafkaClient: ClientKafka,
+    @InjectRepository(AuditLog)
+    private readonly auditLogRepository: Repository<AuditLog>,
+  ) { }
 
-  async sendLog(userId: number, action: string) {
-    await this.producer.connect()
-    await this.producer.send({
-      topic: 'audit-logs',
-      messages: [
-        { value: JSON.stringify({ userId, action, timestamp: new Date() }) },
-      ],
-    })
-    await this.producer.disconnect()
+  async sendLog(logMessage: string, userId: string) {
+    const auditLog = this.auditLogRepository.create({
+      userId,
+      action: logMessage,
+      timestamp: new Date(),
+    });
+
+    await this.auditLogRepository.save(auditLog);
+    this.kafkaClient.emit('log_topic', logMessage)
   }
 }

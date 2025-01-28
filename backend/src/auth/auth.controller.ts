@@ -5,7 +5,7 @@ import { LoginDto } from './dto/login.dto'
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   async register(@Body(ValidationPipe) registerDto: RegisterDto) {
@@ -17,5 +17,12 @@ export class AuthController {
   async login(@Body(ValidationPipe) loginDto: LoginDto) {
     const { email, password } = loginDto
     return this.authService.login(email, password)
+  }
+
+  @Post('refresh-token')
+  async refreshToken(
+    @Body('refreshToken') refreshToken: string,
+  ): Promise<{ accessToken: string }> {
+    return this.authService.refreshToken(refreshToken)
   }
 }

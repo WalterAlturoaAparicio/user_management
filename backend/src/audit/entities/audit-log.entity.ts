@@ -7,7 +7,7 @@ export class AuditLog {
   id: number
 
   @Column()
-  userId: number
+  userId: string
 
   @Column()
   action: string

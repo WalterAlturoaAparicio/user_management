@@ -729,6 +729,14 @@
     "@types/jsonwebtoken" "9.0.7"
     jsonwebtoken "9.0.2"
 
+"@nestjs/microservices@^11.0.6":
+  version "11.0.6"
+  resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-11.0.6.tgz#9665055b4ad1ac304f256c57baef2b23087af65a"
+  integrity sha512-/tDpk2ToOuEinhKDb+HBvupJnM2vSpEhhVWtuEsWsrHHmz1BeRedlb1vxIT2QsobGJ/foAViAB7r9O+E8Acvhg==
+  dependencies:
+    iterare "1.2.1"
+    tslib "2.8.1"
+
 "@nestjs/passport@^11.0.5":
   version "11.0.5"
   resolved "https://registry.yarnpkg.com/@nestjs/passport/-/passport-11.0.5.tgz#dd3e506c2fb7ddc80fd1321c01cc1a0ca6d6b609"
