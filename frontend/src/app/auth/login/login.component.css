@@ -1,4 +1,4 @@
-body {
+.login-body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,16 +10,29 @@ body {
 
 .login-card {
     display: flex;
+    flex-direction: row;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     background-color: #ffffff;
     max-width: 900px;
+    width: 100%;
+    align-items: stretch;
 }
 
 .login-image {
-    background: url('https://via.placeholder.com/400') center/cover no-repeat;
     width: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .login-form {
@@ -31,7 +44,7 @@ body {
 }
 
 .login-form h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: #333;
     text-align: center;
 }
@@ -40,6 +53,7 @@ body {
     margin: 0.5rem 0 0.2rem;
     font-size: 14px;
     color: #666;
+    display: block;
 }
 
 .login-form input {
@@ -59,6 +73,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.options label input {
+    width: auto;
 }
 
 .options a {
@@ -68,10 +87,10 @@ body {
 }
 
 .buttons {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .button {
@@ -84,6 +103,7 @@ body {
     position: relative;
     overflow: hidden;
     transition: all 0.3s;
+    width: 100%;
 }
 
 .button-primary {
@@ -133,10 +153,23 @@ body {
 
 .social-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
 }
 
-.social-buttons button {
-    flex: 1;
-    margin: 0 0.2rem;
+@media (max-width: 768px) {
+    .login-card {
+        flex-direction: column;
+        max-width: 400px;
+    }
+
+    .login-image {
+        width: 100%;
+        height: 150px;
+    }
+
+    .login-form {
+        width: 100%;
+    }
 }
