@@ -1,0 +1,81 @@
+/* Contenedor principal */
+.log-table-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: "Arial", sans-serif;
+}
+
+/* Estilos del filtro */
+.filter-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.filter-container mat-form-field {
+  width: 300px;
+}
+
+/* Estilos generales de la tabla */
+mat-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+mat-header-cell {
+  background: #008394;
+  color: white;
+  font-weight: bold;
+  padding: 1rem;
+  text-align: left;
+}
+
+mat-cell {
+  padding: 0.8rem;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Alternar colores en las filas */
+mat-row:nth-child(even) mat-cell {
+  background: #f3f3f3;
+}
+
+/* Estilos de la paginación */
+mat-paginator {
+  margin-top: 1rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ajustes de los botones de paginación */
+mat-paginator .mat-mdc-paginator-range-label {
+  color: #333;
+}
+
+mat-paginator .mat-mdc-paginator-icon {
+  color: #008394;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .log-table-container {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .filter-container mat-form-field {
+    width: 100%;
+  }
+
+  mat-header-cell, mat-cell {
+    font-size: 14px;
+    padding: 0.5rem;
+  }
+}

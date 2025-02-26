@@ -19,7 +19,7 @@
               Please enter a valid email address.
             </mat-error>
           </mat-form-field>
-          <div style="height: 10px;"></div>
+          <div style="height: 10px"></div>
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Password</mat-label>
             <input
@@ -28,13 +28,22 @@
               type="password"
               id="password"
             />
-            <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+            <mat-error
+              *ngIf="loginForm.controls['password'].hasError('required')"
+            >
               Password required
             </mat-error>
-            <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">
+            <mat-error
+              *ngIf="loginForm.controls['password'].hasError('minlength')"
+            >
               Password must be at least 8 characters
             </mat-error>
-            <mat-error *ngIf="!loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].hasError('passwordStrength')">
+            <mat-error
+              *ngIf="
+                !loginForm.controls['password'].hasError('minlength') &&
+                loginForm.controls['password'].hasError('passwordStrength')
+              "
+            >
               Include lowercase, uppercase and numbers
             </mat-error>
           </mat-form-field>
@@ -46,7 +55,13 @@
 
           <div class="buttons">
             <button type="submit" class="button primary">Login</button>
-            <button type="button" class="button secondary">Register</button>
+            <button
+              type="button"
+              class="button secondary"
+              (click)="navigateToRegister()"
+            >
+              Register
+            </button>
           </div>
 
           <div class="social-buttons">

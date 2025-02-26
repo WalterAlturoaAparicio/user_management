@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #d9d9d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .card {
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .card p {
+            margin: 10px 0 0;
+            font-weight: bold;
+        }
+        .button {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select the Platform You Want to Manage</h1>
+        <div class="grid">
+            <div class="card">
+                <img src="accounting.jpg" alt="Accounting">
+                <p>Accounting</p>
+                <a href="#" class="button">Enter</a>
+            </div>
+            <div class="card">
+                <img src="education.jpg" alt="Education">
+                <p>Education</p>
+                <a href="#" class="button">Enter</a>
+            </div>
+            <div class="card">
+                <img src="restaurant.jpg" alt="Restaurant Management">
+                <p>Restaurant Management</p>
+                <a href="#" class="button">Enter</a>
+            </div>
+            <div class="card">
+                <img src="ecommerce.jpg" alt="E-commerce">
+                <p>E-commerce</p>
+                <a href="#" class="button">Enter</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -31,7 +31,6 @@ export class LoginComponent {
         Validators.required,
         Validators.minLength(8),
         this.passwordStrengthValidator,
-        // Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
       ]]
     });
   }
@@ -42,7 +41,7 @@ export class LoginComponent {
       this.authService.login(email, password).subscribe({
         next: (response) => {
           // Save token and redirect to dashboard
-          localStorage.setItem('authToken', response.token);
+          localStorage.setItem('authToken', response.data.result.accessToken);
           this.successMessage = 'Login successful!';
           this.router.navigate(['/dashboard']);
         },
@@ -72,5 +71,9 @@ export class LoginComponent {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/auth/register']);
   }
 }
