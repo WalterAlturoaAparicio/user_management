@@ -16,7 +16,7 @@ import { ConfigModule } from '@nestjs/config'
     UserModule,
     RoleModule,
     AuthModule,
-    AuditModule,
+    //AuditModule,
     DatabaseModule,
   ],
   controllers: [AppController],

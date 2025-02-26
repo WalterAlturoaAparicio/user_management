@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { AuditLog } from './entities/audit-log.entity'
+import { AuditLog } from '../database/entities/audit-log.entity'
 import { Repository } from 'typeorm'
 import { ClientKafka } from '@nestjs/microservices'
 
@@ -11,16 +11,16 @@ export class AuditService {
     private readonly kafkaClient: ClientKafka,
     @InjectRepository(AuditLog)
     private readonly auditLogRepository: Repository<AuditLog>,
-  ) { }
+  ) {}
 
   async sendLog(logMessage: string, userId: string) {
     const auditLog = this.auditLogRepository.create({
       userId,
       action: logMessage,
       timestamp: new Date(),
-    });
+    })
 
-    await this.auditLogRepository.save(auditLog);
+    await this.auditLogRepository.save(auditLog)
     this.kafkaClient.emit('log_topic', logMessage)
   }
 }

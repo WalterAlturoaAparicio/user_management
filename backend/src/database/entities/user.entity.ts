@@ -1,6 +1,6 @@
-import { AuditLog } from 'src/audit/entities/audit-log.entity'
-import { PasswordResetToken } from 'src/auth/entities/password-reset.entity'
-import { Role } from 'src/role/entities/role.entity'
+import { AuditLog } from 'src/database/entities/audit-log.entity'
+import { PasswordResetToken } from 'src/database/entities/password-reset.entity'
+import { Role } from 'src/database/entities/role.entity'
 import {
   Entity,
   Column,
@@ -23,6 +23,9 @@ export class User {
 
   @Column({ nullable: true })
   refreshToken: string
+
+  @Column({ nullable: true })
+  userName: string
 
   @ManyToOne(() => Role, (role) => role.users, { eager: true })
   role: Role

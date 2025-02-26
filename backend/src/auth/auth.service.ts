@@ -3,8 +3,8 @@ import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { User } from 'src/user/entities/user.entity'
-import { Role } from 'src/role/entities/role.entity'
+import { User } from 'src/database/entities/user.entity'
+import { Role } from 'src/database/entities/role.entity'
 import { AuditService } from 'src/audit/audit.service'
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthService {
     private readonly roleRepository: Repository<Role>,
     private readonly jwtService: JwtService,
     private readonly auditService: AuditService,
-  ) { }
+  ) {}
 
   async register(email: string, password: string) {
     const hashedPassword = await bcrypt.hash(password, 10)

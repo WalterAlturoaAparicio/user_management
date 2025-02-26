@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { AuditLog } from './entities/audit-log.entity'
+import { AuditLog } from '../database/entities/audit-log.entity'
 import { AuditService } from './audit.service'
 import { ClientsModule, Transport } from '@nestjs/microservices'
 import { Partitioners } from 'kafkajs'
@@ -26,4 +26,4 @@ import { Partitioners } from 'kafkajs'
   providers: [AuditService],
   exports: [TypeOrmModule, AuditService],
 })
-export class AuditModule { }
+export class AuditModule {}

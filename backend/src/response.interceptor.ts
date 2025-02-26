@@ -15,7 +15,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T> {
         success: true,
         data: {
           message: 'Operation successful',
-          result: data || null,
+          ...data,
         },
         errors: null,
         meta: null,

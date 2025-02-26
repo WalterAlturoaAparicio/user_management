@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { In, Repository } from 'typeorm'
-import { User } from 'src/user/entities/user.entity'
-import { AuditLog } from 'src/audit/entities/audit-log.entity'
+import { User } from 'src/database/entities/user.entity'
+import { AuditLog } from 'src/database/entities/audit-log.entity'
 import { UUID } from 'crypto'
-import { Role } from 'src/role/entities/role.entity'
+import { Role } from 'src/database/entities/role.entity'
 
 @Injectable()
 export class UserService {
