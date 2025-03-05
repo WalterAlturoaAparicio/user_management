@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import type { Activity } from '../schema';
+import type { AuditLog } from '../schema';
 
 interface WebSocketContextType {
   connected: boolean;
@@ -33,7 +33,7 @@ export function WebSocketProvider({ children }: { children: ReactNode }) {
         const data = JSON.parse(event.data);
         if (data.type === 'NEW_ACTIVITY') {
           // Update activities in react-query cache
-          queryClient.setQueryData<Activity[]>(['/api/activities'], (old = []) => {
+          queryClient.setQueryData<AuditLog[]>(['/api/activities'], (old = []) => {
             return [data.activity, ...old];
           });
         }

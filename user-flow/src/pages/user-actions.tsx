@@ -54,7 +54,7 @@ export default function UserActions() {
     return null;
   }
 
-  const actions = getActionsByRole(currentUser.roleId);
+  const actions = getActionsByRole(currentUser.role.id);
 
   return (
     <div className="min-h-screen bg-background flex">

@@ -10,6 +10,8 @@ import { PassportModule } from '@nestjs/passport'
 import { JwtStrategy } from './jwt.strategy'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { AuditModule } from 'src/audit/audit.module'
+import { BusinessType } from 'src/database/entities/business-type.entity'
+import { Permission } from 'src/database/entities/permission.entity'
 
 @Module({
   imports: [
@@ -22,7 +24,13 @@ import { AuditModule } from 'src/audit/audit.module'
         signOptions: { expiresIn: '1h' },
       }),
     }),
-    TypeOrmModule.forFeature([PasswordResetToken, User, Role]),
+    TypeOrmModule.forFeature([
+      PasswordResetToken,
+      User,
+      Role,
+      BusinessType,
+      Permission,
+    ]),
     AuditModule,
   ],
   providers: [JwtStrategy, AuthService],

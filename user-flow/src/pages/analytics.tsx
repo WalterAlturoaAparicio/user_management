@@ -14,7 +14,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import NavSidebar from "@/components/nav-sidebar";
-import { Activity, User, BusinessType } from "../schema";
+import { AuditLog, User, BusinessType } from "../schema";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)"];
@@ -24,7 +24,7 @@ export default function Analytics() {
     queryKey: ["/api/insights"],
   });
 
-  const { data: activities } = useQuery<Activity[]>({
+  const { data: activities } = useQuery<AuditLog[]>({
     queryKey: ["/api/activities"],
   });
 
@@ -61,7 +61,7 @@ export default function Analytics() {
 
   // Calculate users per business type
   const usersPerBusinessType = users?.reduce((acc, user) => {
-    acc[user.businessTypeId] = (acc[user.businessTypeId] || 0) + 1;
+    acc[user.role.businessType.id] = (acc[user.role.businessType.id] || 0) + 1;
     return acc;
   }, {} as Record<number, number>);
 

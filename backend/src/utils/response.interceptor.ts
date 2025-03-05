@@ -13,10 +13,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T> {
     return next.handle().pipe(
       map((data) => ({
         success: true,
-        data: {
-          message: 'Operation successful',
-          ...data,
-        },
+        data,
         errors: null,
         meta: null,
       })),

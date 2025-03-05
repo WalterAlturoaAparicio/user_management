@@ -1,6 +1,6 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { Activity, User } from "../schema";
+import { AuditLog, User } from "../schema";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { useWebSocket } from "@/lib/websocket";
@@ -9,7 +9,7 @@ import { format } from "date-fns";
 export default function ActivityLog() {
   const { connected } = useWebSocket();
 
-  const { data: activities, isLoading: loadingActivities } = useQuery<Activity[]>({
+  const { data: activities, isLoading: loadingActivities } = useQuery<AuditLog[]>({
     queryKey: ["/api/activities"],
   });
 
@@ -40,7 +40,7 @@ export default function ActivityLog() {
                 className="flex items-center justify-between p-4 rounded-lg border"
               >
                 <div>
-                  <p className="font-medium">{user?.username}</p>
+                  <p className="font-medium">{user?.userName}</p>
                   <p className="text-sm text-muted-foreground">{activity.action}</p>
                 </div>
                 <time className="text-sm text-muted-foreground">

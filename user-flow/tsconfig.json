@@ -32,7 +32,8 @@
     "noUnusedParameters": false, // Permite parámetros de función sin uso
     "noImplicitAny": false, // Permite variables sin tipo explícito
     "noImplicitReturns": false, // No exige return en todas las ramas de una función
-    "noImplicitThis": false // Permite `this` sin restricciones
+    "noImplicitThis": false, // Permite `this` sin restricciones
+    "types": ["vite/client"]
   },
   "include": [
     "next-env.d.ts",

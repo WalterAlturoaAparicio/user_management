@@ -3,14 +3,14 @@ import NavSidebar from "@/components/nav-sidebar";
 import ActivityLog from "@/components/activity-log";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { User, Activity } from "../schema";
+import { User, AuditLog } from "../schema";
 
 export default function Dashboard() {
   const { data: users, isLoading: loadingUsers } = useQuery<User[]>({
     queryKey: ["/api/users"],
   });
 
-  const { data: activities, isLoading: loadingActivities } = useQuery<Activity[]>({
+  const { data: activities, isLoading: loadingActivities } = useQuery<AuditLog[]>({
     queryKey: ["/api/activities"],
   });
 

@@ -23,7 +23,7 @@ export class UserService {
       relations: ['managedUsers'],
     })
 
-    if (!admin || admin.role.name !== 'admin') {
+    if (!admin || admin.role.key !== 'admin') {
       throw new BadRequestException('Only admins can view managed users logs')
     }
 
@@ -44,7 +44,7 @@ export class UserService {
     // Si el rol es "superadmin", verifica que no exista otro
     if (roleName === 'superadmin') {
       const existingSuperAdmin = await this.userRepository.findOne({
-        where: { role: { name: 'superadmin' } },
+        where: { role: { key: 'superadmin' } },
       })
       if (existingSuperAdmin) {
         throw new BadRequestException('Only one superadmin is allowed')
@@ -53,7 +53,7 @@ export class UserService {
 
     // Asignar el rol
     const role = await this.roleRepository.findOne({
-      where: { name: roleName },
+      where: { key: roleName },
     })
     if (!role) throw new BadRequestException('Role not found')
 

@@ -1,53 +1,72 @@
-'use client'
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useLocation } from "wouter";
-import { useMutation } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
+
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import { useMutation } from "@tanstack/react-query"
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { useToast } from "@/hooks/use-toast"
+import { apiRequest } from "@/lib/queryClient"
+import { useRouter } from "next/navigation"
 
 const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
-});
+  email: z.string().email("Invalid email").min(1, "Email is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+})
 
 export default function Login() {
-  const [, setLocation] = useLocation();
-  const { toast } = useToast();
-  
+  const router = useRouter()
+  const { toast } = useToast()
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
-  });
+  })
 
   const loginMutation = useMutation({
     mutationFn: async (data: z.infer<typeof loginSchema>) => {
-      const res = await apiRequest("POST", "http://localhost:3000/api/auth/login", data);
-      return res.json();
+      try {
+        const res = await apiRequest(
+          "POST",
+          "/api/auth/login",
+          data
+        )
+        console.log(res);
+        if (!res.ok) {
+          throw new Error("Invalid credentials")
+        }
+        return await res.json()
+      } catch (error) {
+        throw new Error(error.message || "Login failed")
+      }
     },
     onSuccess: (data) => {
       toast({
         title: "Login successful",
-        description: `Welcome back, ${data.username}!`,
-      });
-      setLocation(data.roleId === 1 ? "/dashboard" : "/actions");
+        description: `Welcome back, ${data.userName || "User"}!`,
+      })
+      router.push(data.role?.name === "Admin" ? "/dashboard" : "/actions");
     },
-    onError: () => {
+    onError: (error) => {
       toast({
         variant: "destructive",
         title: "Login failed",
-        description: "Invalid username or password",
-      });
+        description: error.message || "Invalid email or password",
+      })
     },
-  });
+  })
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -57,15 +76,18 @@ export default function Login() {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit((data) => loginMutation.mutate(data))} className="space-y-4">
+            <form
+              onSubmit={form.handleSubmit((data) => loginMutation.mutate(data))}
+              className="space-y-4"
+            >
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input type="email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -84,8 +106,8 @@ export default function Login() {
                   </FormItem>
                 )}
               />
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full"
                 disabled={loginMutation.isPending}
               >
@@ -104,5 +126,5 @@ export default function Login() {
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }

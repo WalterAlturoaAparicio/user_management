@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { UserModule } from './user/user.module'
-import { RoleModule } from './role/role.module'
 import { AuthModule } from './auth/auth.module'
 import { AuditModule } from './audit/audit.module'
 import { DatabaseModule } from './database/database.module'
 import { ConfigModule } from '@nestjs/config'
+import { BusinessModule } from './business/business.module'
 
 @Module({
   imports: [
@@ -14,10 +14,10 @@ import { ConfigModule } from '@nestjs/config'
       isGlobal: true,
     }),
     UserModule,
-    RoleModule,
     AuthModule,
     //AuditModule,
     DatabaseModule,
+    BusinessModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,37 +1,42 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import BusinessTypeSelector from "@/components/business-type-selector";
-import Tutorial from "@/components/tutorial";
-import { useMutation } from "@tanstack/react-query";
-import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card"
+import BusinessTypeSelector from "@/components/business-type-selector"
+import Tutorial from "@/components/tutorial"
+// import { useMutation } from "@tanstack/react-query"
+// import { useToast } from "@/hooks/use-toast"
+// import { apiRequest } from "@/lib/queryClient"
+import { useRouter } from "next/router"
 
 export default function Home() {
-  const { toast } = useToast();
-  const [, setLocation] = useLocation();
+  // const { toast } = useToast()
+  const router = useRouter()
 
-  const demoLoginMutation = useMutation({
-    mutationFn: async () => {
-      const res = await apiRequest("POST", "/api/auth/demo-login", {});
-      return res.json();
-    },
-    onSuccess: (data) => {
-      toast({
-        title: "Demo Mode Active",
-        description: "You're now exploring the system in demo mode",
-      });
-      setLocation(data.roleId === 1 ? "/dashboard" : "/actions");
-    },
-    onError: () => {
-      toast({
-        variant: "destructive",
-        title: "Demo Login Failed",
-        description: "Unable to start demo mode. Please try again.",
-      });
-    },
-  });
+  // const demoLoginMutation = useMutation({
+  //   mutationFn: async () => {
+  //     const res = await apiRequest("POST", "/api/auth/demo-login", {})
+  //     return res.json()
+  //   },
+  //   onSuccess: (data) => {
+  //     toast({
+  //       title: "Demo Mode Active",
+  //       description: "You're now exploring the system in demo mode",
+  //     })
+  //     router.push(data.role.id === 1 ? "/dashboard" : "/actions")
+  //   },
+  //   onError: () => {
+  //     toast({
+  //       variant: "destructive",
+  //       title: "Demo Login Failed",
+  //       description: "Unable to start demo mode. Please try again.",
+  //     })
+  //   },
+  // })
 
   return (
     <div className="min-h-screen bg-background p-8">
@@ -41,7 +46,8 @@ export default function Home() {
             User Management System
           </h1>
           <p className="text-muted-foreground text-lg">
-            Select a business type to get started with role-based access management
+            Select a business type to get started with role-based access
+            management
           </p>
         </div>
 
@@ -60,23 +66,25 @@ export default function Home() {
         </Card>
 
         <div className="flex justify-center gap-4 mt-8">
-          <Link href="/login">
-            <Button size="lg" id="login-button">
-              Login to System
-            </Button>
-          </Link>
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
+            id="login-button"
+            onClick={() => router.push("/login")}
+          >
+            Login to System
+          </Button>
+          {/* <Button
+            size="lg"
             variant="secondary"
             onClick={() => demoLoginMutation.mutate()}
             disabled={demoLoginMutation.isPending}
           >
             {demoLoginMutation.isPending ? "Starting Demo..." : "Try Demo"}
-          </Button>
+          </Button> */}
         </div>
       </div>
 
       <Tutorial />
     </div>
-  );
+  )
 }

@@ -23,7 +23,7 @@ export class AuthService {
 
     // Obtén el rol por defecto
     const defaultRole = await this.roleRepository.findOne({
-      where: { name: 'user' },
+      where: { key: 'user' },
     })
     if (!defaultRole) throw new Error('Default role "user" not found')
 
@@ -70,7 +70,7 @@ export class AuthService {
       }
 
       const newAccessToken = this.jwtService.sign(
-        { id: user.id, role: user.role.name },
+        { id: user.id, role: user.role.key },
         { expiresIn: '15m' },
       )
 

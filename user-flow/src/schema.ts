@@ -1,14 +1,17 @@
 export interface BusinessType {
-  id: number;
+  businessType_id: number;
+  businessType_key: string;
   name: string;
   description: string;
 }
 
 export interface Role {
-  id: number;
+  role_id: number;
   name: string;
   description: string;
   users?: User[];
+  businessType: BusinessType;
+  permissions: Permission[];
 }
 
 export interface User {
@@ -40,4 +43,9 @@ export interface AuditLog {
   action: string;
   user: User;
   timestamp: Date;
+}
+export interface Permission {
+  id: number;
+  name: string;
+  description: string;
 }
